@@ -193,19 +193,19 @@ export default{
                 }
             }
             
-            if(min_dis < 20) return
-
-            let type = 0
-            for(let key in pers_list){
-                if(this.min_color === pers_list[key][2]) {
-                    type = pers_list[key][0]
-                    break
+            if(min_dis >= 20){
+                let type = 0
+                for(let key in pers_list){
+                    if(this.min_color === pers_list[key][2]) {
+                        type = pers_list[key][0]
+                        break
+                    }
                 }
+                
+                let hills = visualcode_object[type][this.analysis_idx].hill_list;
+                let total_pers = hills[hills.length - 1].end_persistent;
+                bus.emit("updatePersistence", [this.min_color, (y_val-20)/(this.canvas_y-40) *total_pers, false])
             }
-            
-            let hills = visualcode_object[type][this.analysis_idx].hill_list;
-            let total_pers = hills[hills.length - 1].end_persistent;
-            bus.emit("updatePersistence", [this.min_color, (y_val-20)/(this.canvas_y-40) *total_pers, false])
 
             if(!this.is_move){
                 let moveFunction = this.movePersistence
